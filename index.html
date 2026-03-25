@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-Armed Bandit Strategy Comparison | DIC3 Academy</title>
+    <meta name="description" content="A comprehensive comparison of 6 exploration-exploitation strategies for the Multi-Armed Bandit problem.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="glow-bg"></div>
+    <main class="container">
+        <header class="hero">
+            <h1 class="gradient-text">Comparison of 6 Bandit Strategies</h1>
+            <p class="subtitle">Total Budget: <span>$10,000</span> | Bandit Arms: <span>A (0.8), B (0.7), C (0.5)</span></p>
+        </header>
+
+        <section class="overview-grid">
+            <div class="card stat-card">
+                <h3>Optimal Reward</h3>
+                <div class="val">$8,000</div>
+                <div class="label">Maximum possible with Arm A</div>
+            </div>
+            <div class="card stat-card primary">
+                <h3>Thompson Sampling</h3>
+                <div class="val">$7,980</div>
+                <div class="label">Best Practitioner Choice</div>
+            </div>
+            <div class="card stat-card warning">
+                <h3>A/B Testing</h3>
+                <div class="val">$7,734</div>
+                <div class="label">Simple but Wasteful</div>
+            </div>
+        </section>
+
+        <section class="chart-section card">
+            <h2>Cumulative Reward Performance</h2>
+            <div class="canvas-container">
+                <canvas id="performanceChart"></canvas>
+            </div>
+        </section>
+
+        <section class="strategy-details">
+            <h2>Strategy Deep Dive</h2>
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="ab">A/B Testing</button>
+                <button class="tab-btn" data-tab="epsilon">ε-Greedy</button>
+                <button class="tab-btn" data-tab="optimistic">Optimistic</button>
+                <button class="tab-btn" data-tab="softmax">Softmax</button>
+                <button class="tab-btn" data-tab="ucb">UCB</button>
+                <button class="tab-btn" data-tab="thompson">Thompson</button>
+            </div>
+            <div id="strategyContent" class="tab-content card">
+                <!-- Content will be injected by JavaScript -->
+            </div>
+        </section>
+
+        <section class="comparison-table card">
+            <h2>Class Comparison Table</h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Method</th>
+                            <th>Exploration Style</th>
+                            <th>Total Reward</th>
+                            <th>Regret</th>
+                            <th>Efficiency</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <!-- Table rows will be injected by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="discussion card">
+            <h2>Instructor Insights & Discussion</h2>
+            <div class="accordion">
+                <div class="item">
+                    <button class="accordion-header">Which method performed best? Why?</button>
+                    <div class="accordion-body">
+                        <strong>Thompson Sampling</strong> and <strong>UCB</strong> performed best. Why? Because they are <strong>adaptive</strong>—they balance exploration and exploitation dynamically based on uncertainty, reducing budget waste on subpar arms.
+                    </div>
+                </div>
+                <div class="item">
+                    <button class="accordion-header">Which method wastes the most budget?</button>
+                    <div class="accordion-body">
+                        <strong>A/B Testing</strong>. It forces a set budget (e.g., $2,000) into exploration regardless of early performance results, spending equal money on the 0.5 arm as the 0.8 arm.
+                    </div>
+                </div>
+                <div class="item">
+                    <button class="accordion-header">Why is A/B testing not adaptive?</button>
+                    <div class="accordion-body">
+                        Traditional A/B testing is <strong>static</strong>. It separates the exploration phase from the decision phase. Once the experiment starts, the allocation is fixed until the end, ignoring real-time feedback that could save budget.
+                    </div>
+                </div>
+                <div class="item">
+                    <button class="accordion-header">Which method would you deploy in an Ads system vs Clinical Trial?</button>
+                    <div class="accordion-body">
+                        <ul>
+                            <li><strong>Ads System:</strong> Thompson Sampling. It handles high-velocity data and multiple arms efficiently.</li>
+                            <li><strong>Clinical Trial:</strong> UCB (Upper Confidence Bound). It provides more mathematically rigorous bounds on regret, which is crucial when human health is involved.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="item">
+                    <button class="accordion-header">What happens if the budget is smaller?</button>
+                    <div class="accordion-body">
+                        With a smaller budget, <strong>A/B testing</strong> suffers the most because it might not reach statistical significance. Adaptive methods like <strong>Thompson Sampling</strong> excel because they prioritize the best arms almost immediately.
+                    </div>
+                </div>
+                <div class="item">
+                    <button class="accordion-header">What happens if means are closer (0.8 vs 0.79)?</button>
+                    <div class="accordion-body">
+                        Regret increases for all methods as it becomes harder to differentiate the 'best' arm. This requires much more exploration (budget) to reach a confident decision.
+                    </div>
+                </div>
+                <!-- More items will be added via JS -->
+            </div>
+        </section>
+    </main>
+    <script src="scripts.js"></script>
+</body>
+</html>
